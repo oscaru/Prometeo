@@ -1,0 +1,31 @@
+* {
+    padding:0px;
+    margin:0px;
+}
+
+section {
+    position : fixed;
+    width: 100%;
+    height:100%;
+        
+}
+
+#portada {
+    background-color: orange;
+    
+}
+
+#descripcion{
+    background-color: yellow;
+    -moz-transform: translateX(100%);
+    -moz-transition: -moz-transform 2s  cubic-bezier(0.210, 0.975, 0.000, 1.015); 
+    
+}
+#descripcion:target{
+    -moz-transform: translateX(0%);
+    -moz-transition: -moz-transform 2s cubic-bezier(0.210, 0.975, 0.000, 1.015) ; 
+   
+    
+  
+    
+}

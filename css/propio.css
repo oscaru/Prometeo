@@ -1,0 +1,9 @@
+#portada,#ajustes{
+     background: none repeat scroll 0 0 #fff;
+    border: 0 none;
+    height: 100%;
+}
+
+section[role="region"] {
+    position: absolute;
+}
