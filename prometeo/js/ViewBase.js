@@ -1,22 +1,3 @@
-/**********************************************
- * Copyright (C) 2014 Lukas Laag
- * This file is part of dictaphone.js.
- * 
- * dictaphone.js is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * dictaphone.js is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with dictaphone.js.  If not, see http://www.gnu.org/licenses/
- **********************************************/
-
-/* global Backbone, MozActivity, window*/
 
 function ViewBase ($el){
   this.id  = $el.attr('id');
@@ -37,7 +18,7 @@ function ViewBase ($el){
   };
   
   this.deferTransition = function(f, el) {
-    (el ? el : this.$el).one('transitionend', f);
+    (el ? el : this.$el).one('transitionend', f); //The .one() method is identical to .on(), except that the handler is unbound after its first invocation.
   };
   
   this.setHPos = function setHPos(pos) {

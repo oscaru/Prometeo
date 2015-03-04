@@ -19,10 +19,10 @@
 'use strict';
 
 function ViewStack() {
-  this.stack = []; //stack de entry
+  this.stack = []; //stack de entradas
   
 
-  this.peek = function peek() {
+  this.peek = function peek() { //la ultima vista de la pila
     var len = this.stack.length;
     return len ? this.stack[len - 1] : null;
   };
