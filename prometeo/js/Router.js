@@ -87,6 +87,9 @@ function Router ($){
     this._routes  = routes;
     
     if(_$) $(window).bind('hashchange', function(e){ self.check();  });
+    $(document).ready(function(){
+        self.check();
+    })
     
 };
 
