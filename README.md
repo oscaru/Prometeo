@@ -1,2 +1,2 @@
 # Prometeo
-Yust my mobile Framework
+Just my mobile Framework
