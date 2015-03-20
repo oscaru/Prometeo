@@ -1,44 +1,38 @@
-/**********************************************
- * Copyright (C) 2014 Lukas Laag
- * This file is part of dictaphone.js.
- *
- * dictaphone.js is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * dictaphone.js is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with dictaphone.js.  If not, see http://www.gnu.org/licenses/
- **********************************************/
-
 'use strict';
+/*
+ * Pila de vitas
+ * 
+ */
 
 function ViewStack() {
-  this.stack = []; //stack de entradas
-  
-
-  this.peek = function peek() { //la ultima vista de la pila
-    var len = this.stack.length;
-    return len ? this.stack[len - 1] : null;
-  };
-
-  this.findView = function findView(view) {
-      var i, len, entry;
-      for (i = 0, len = this.stack.length; i < len; i++) {
-        entry = this.stack[i];
-        if (entry.view === view) {
-          return i;
+    var _self = this;
+    
+    this.stack = []; //stack de entradas
+    
+    (function (){ //init
+        if(!$('#loading')){
+            $('document').append('<section id="loading" class="loading transparente phantom" role="region"></section>');
         }
-      }
-      return -1;
+    })();
+
+    this.peek = function peek() { //la ultima vista de la pila
+        var len = this.stack.length;
+        return len ? this.stack[len - 1] : null;
     };
 
-  this.showMenu = function showMenu() {
+    //buscamos una vista en la pila  
+    this.findView = function findView(view) { 
+        var i, len, entry;
+            for (i = 0, len = this.stack.length; i < len; i++) {
+            entry = this.stack[i];
+            if (entry.view === view) {
+              return i;
+            }
+        }
+        return -1;
+    };
+
+    this.showMenu = function showMenu() {
         var topEntry = this.peek(),
         len = this.stack.length;
         if (topEntry) {
@@ -54,6 +48,38 @@ function ViewStack() {
 
         }
     };
+    
+    this.loadContent = function (url, data, view, replace, callback){
+            var url = url,
+                data = data || {},
+                replace = replace || true,
+                callback = (typeof callback == 'function')? callback : function(){}
+                
+            ;
+          
+            _self.showLoading('true');
+            
+            view.$el.load(url,data,function( response, status, xhr ) {
+                       if ( status == "error" ) {
+                             //xhr.status + " " + xhr.statusText
+                         }else {
+                             
+                         }
+                        _self.showLoading(false);
+                        _self.showView(view,replace,callback);
+                     });
+    };
+    
+    
+    this.showLoading = function(bool){
+        if(!!bool){
+            $('#loading').addClass('ztop').removeClass('transparente');
+        }
+        else { 
+            $('#loading').addClass('transparente').removeClass('ztop');
+        }
+    };
+    
     
     
 
@@ -146,7 +172,11 @@ function ViewStack() {
       var state;
       if (states.length) {
         state = states.shift();
-
+        
+        if (state.hasOwnProperty('trans')) {
+          state.view.setHTransition(state.trans);
+        }
+        
         if (state.hasOwnProperty('hpos')) {
           state.view.setHPos(state.hpos);
         }
@@ -155,16 +185,15 @@ function ViewStack() {
         }
         if (state.hasOwnProperty('visible')) {
           state.view.setVisible(state.visible);
-          // Necessary hack because of seekbars
+          // 
+// Necessary hack because of seekbars
           // The view must be displayed so that the seekbars have
           // proper dimensions for initialization
-          if (state.visible && typeof state.view.lazyRender === 'function') {
+          /*if (state.visible && typeof state.view.lazyRender === 'function') {
             state.view.lazyRender();
-          }
+          }*/
         }
-        if (state.hasOwnProperty('trans')) {
-          state.view.setHTransition(state.trans);
-        }
+        
         if (state.hasOwnProperty('hpos') && state.view.hasHTransition()) {
           state.view.deferTransition(this.display.bind(this, states, callback));
         } else {

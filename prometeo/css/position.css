@@ -18,9 +18,9 @@ transform: translateX(0%);
 -webkit-transform: translateX(0%);
 }
 .hmid {
-transform: translateX(80%);
--moz-transform: translateX(80%);
--webkit-transform: translateX(80%);
+transform: translateX(50%);
+-moz-transform: translateX(50%);
+-webkit-transform: translateX(50%);
 }
 .hright {
 transform: translateX(100%);
@@ -28,8 +28,11 @@ transform: translateX(100%);
 -webkit-transform: translateX(100%);
 }
 .hidden {
-display:none;
+ visibility:hidden;
+
 }
+
+
 .zmid {
 z-index: 100 !important;
 }

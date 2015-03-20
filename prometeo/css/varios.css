@@ -1,0 +1,19 @@
+section[role="region"] {
+    position: absolute;
+    background: none repeat scroll 0 0 #fff;
+    border: 0 none;
+    height: 100%;
+}
+
+section[role="region"].phantom {
+     transition: opacity 1s ease 0s ;
+}
+
+section[role="region"].loading {
+    background: #000 url("img/loading.gif") no-repeat center center;
+    opacity: 0.9;
+}
+section[role="region"].transparente {
+    opacity:0;
+    z-index: -1;
+}

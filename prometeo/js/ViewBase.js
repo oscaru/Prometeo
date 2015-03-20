@@ -1,3 +1,6 @@
+/*
+ * Capa de vistas 
+ */
 
 function ViewBase ($el){
   this.id  = $el.attr('id');
@@ -11,6 +14,7 @@ function ViewBase ($el){
     this.$el.children().remove();
     this.$el.append(element.children());
   };
+    
   
   this.defer = function(f,time) {
     var time = time ||  50;
@@ -18,7 +22,7 @@ function ViewBase ($el){
   };
   
   this.deferTransition = function(f, el) {
-    (el ? el : this.$el).one('transitionend', f); //The .one() method is identical to .on(), except that the handler is unbound after its first invocation.
+    (el ? el : this.$el).one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', f); //The .one() method is identical to .on(), except that the handler is unbound after its first invocation.
   };
   
   this.setHPos = function setHPos(pos) {
